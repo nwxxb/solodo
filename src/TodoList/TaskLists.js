@@ -33,14 +33,14 @@ function TaskLists({ column, completedTasks, tasks, taskCompletedHandler, taskDe
     <div className="flex flex-col items-center py-4">
       {completedTasks.length > 0 ? (
         <>
-          <img className="mb-8 h-40" src={ImageOnAllDone} alt="all task is completed" />
+          <img className="mb-8 h-40 select-none" src={ImageOnAllDone} alt="all task is completed" />
           <span className="text-lg text-gray-300 font-medium text-center select-none">
             Wohooo!, Semua tugas telah selesai!.
           </span>
         </>
       ) : (
         <>
-          <img className="mb-8 h-40" src={ImageOnEmpty} alt="task is empty" />
+          <img className="mb-8 h-40 select-none" src={ImageOnEmpty} alt="task is empty" />
           <span className="text-lg text-gray-300 font-medium text-center select-none">
             tidak ada tugas tersedia (wohoo?). Ayo ketikkan tugas baru diatas!
           </span>

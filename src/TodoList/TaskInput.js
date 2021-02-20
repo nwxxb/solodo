@@ -28,16 +28,26 @@ function TaskInput({ isDisabled, onTaskSubmit }) {
 
   return (
     <div className="mb-4 items-center flex border rounded bg-white">
+      <label className="hidden" htmlFor="input-task"></label>
       <input
         ref={inputRef}
         onKeyDown={handleKeyDown}
-        className="p-2 pl-4 text-xl w-full rounded"
+        name="input-task"
+        className="p-2 pl-4 text-xl w-full rounded focus:outline-none focus:ring focus:ring-blue-400"
         type="text"
-        placeholder={isDisabled ? "mengambil tugas..." : "Ketikkan tugasmu disini"}
+        placeholder={
+          isDisabled ? "mengambil tugas..." : "Ketikkan tugasmu disini"
+        }
         disabled={isDisabled}
         maxLength="200"
       />
-      <span onClick={handleClick} className="text-sm border font-medium text-white bg-blue-400 hover:bg-blue-500 cursor-pointer mx-2 p-2 rounded-md select-none">↵</span>
+      <button
+        aria-label="Add Task"
+        onClick={handleClick}
+        className="text-sm border font-medium text-white bg-blue-400 hover:bg-blue-500 cursor-pointer mx-2 p-2 rounded-md select-none"
+      >
+        ↵
+      </button>
     </div>
   );
 }

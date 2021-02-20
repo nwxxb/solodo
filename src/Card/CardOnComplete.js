@@ -22,7 +22,11 @@ function CardOnComplete({
 
     let cardMenu = (
       <div className="group flex">
-        <div onClick={cardOnCompleted} className="cursor-pointer">
+        <button
+          aria-label="Uncheck Task"
+          onClick={cardOnCompleted}
+          className="cursor-pointer"
+        >
           <svg
             className="w-6 h-6 stroke-current text-gray-400 mr-1"
             fill="currentColor"
@@ -35,8 +39,12 @@ function CardOnComplete({
               clipRule="evenodd"
             ></path>
           </svg>
-        </div>
-        <div onClick={cardOnDelete} className="cursor-pointer">
+        </button>
+        <button
+          aria-label="Delete Completed Task"
+          onClick={cardOnDelete}
+          className="cursor-pointer"
+        >
           <svg
             className="w-6 h-6 stroke-current text-gray-400"
             fill="currentColor"
@@ -49,7 +57,7 @@ function CardOnComplete({
               clipRule="evenodd"
             ></path>
           </svg>
-        </div>
+        </button>
       </div>
     );
     

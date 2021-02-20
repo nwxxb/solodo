@@ -20,7 +20,11 @@ function CardOnFocus({ content, id, onTaskCompleted }) {
 
   let cardMenu = (
     <div className="group flex">
-      <div onClick={cardOnCompleted} className="cursor-pointer">
+      <button
+        aria-label="Check Task"
+        onClick={cardOnCompleted}
+        className="cursor-pointer"
+      >
         <svg
           className="w-8 h-8 stroke-current text-blue-400"
           fill="currentColor"
@@ -33,7 +37,7 @@ function CardOnFocus({ content, id, onTaskCompleted }) {
             clipRule="evenodd"
           ></path>
         </svg>
-      </div>
+      </button>
     </div>
   );
 

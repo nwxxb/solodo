@@ -66,7 +66,7 @@ function CardOnEdit({ content, id, index, onTaskUpdate, onTaskCompleted, onTaskD
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       onPaste={handlePaste}
-      className="pl-1 text-xl flex-1 mr-2 min-w-0 focus:bg-gray-100"
+      className="pl-1 text-xl flex-1 mr-2 min-w-0 focus:bg-gray-50 focus:outline-none rounded-sm focus:ring focus:ring-blue-400"
       tagName="p"
       data-max-length="10"
     />
@@ -74,7 +74,11 @@ function CardOnEdit({ content, id, index, onTaskUpdate, onTaskCompleted, onTaskD
 
   let cardMenu = (
     <div className="group flex min-w-0">
-      <div onClick={cardOnDelete} className="cursor-pointer">
+      <button
+        aria-label="Delete Task"
+        onClick={cardOnDelete}
+        className="cursor-pointer"
+      >
         <svg
           className="w-6 h-6 stroke-current text-red-400"
           fill="currentColor"
@@ -87,7 +91,7 @@ function CardOnEdit({ content, id, index, onTaskUpdate, onTaskCompleted, onTaskD
             clipRule="evenodd"
           ></path>
         </svg>
-      </div>
+      </button>
     </div>
   );
 
