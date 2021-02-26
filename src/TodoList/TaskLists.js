@@ -1,15 +1,18 @@
-import CardOnEdit from '../Card/CardOnEdit'
-import CardOnComplete from '../Card/CardOnComplete'
-import { Droppable } from "react-beautiful-dnd"
-import ImageOnEmpty from "../imageOnEmpty.svg"
-import ImageOnAllDone from "../imageOnAllDone.svg"
-import { useState } from 'react'
+import { Droppable } from 'react-beautiful-dnd';
+import { useState } from 'react';
+import CardOnEdit from '../Card/CardOnEdit';
+import CardOnComplete from '../Card/CardOnComplete';
+import ImageOnEmpty from '../imageOnEmpty.svg';
+import ImageOnAllDone from '../imageOnAllDone.svg';
 
-function TaskLists({ column, completedTasks, tasks, taskCompletedHandler, taskDeleteHandler, taskUpdateHandler }) {
-  let [showCompletedTasks, setShowCompletedTasks] = useState(false)
-  let TaskOnEditLists = column.taskOrder.length ? (
+function TaskLists({
+  column, completedTasks, tasks, taskCompletedHandler, taskDeleteHandler, taskUpdateHandler,
+}) {
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
+  const TaskOnEditLists = column.taskOrder.length ? (
     <Droppable droppableId={column.id}>
       {(provided) => (
+        // eslint-disable-next-line react/jsx-props-no-spreading
         <div ref={provided.innerRef} {...provided.droppableProps}>
           {column.taskOrder.map((taskId, index) => {
             const taskOnRender = tasks[taskId];
@@ -49,7 +52,7 @@ function TaskLists({ column, completedTasks, tasks, taskCompletedHandler, taskDe
     </div>
   );
 
-  let TaskCompletedLists = completedTasks.length > 0 ? (
+  const TaskCompletedLists = completedTasks.length > 0 ? (
     <>
       {completedTasks.map((taskId) => {
         const taskOnRender = tasks[taskId];
@@ -64,15 +67,16 @@ function TaskLists({ column, completedTasks, tasks, taskCompletedHandler, taskDe
         );
       })}
     </>
-  ) : undefined
+  ) : undefined;
 
   return (
     <div className="flex flex-col">
       <div className="py-2">{TaskOnEditLists}</div>
-      {completedTasks.length > 0 &&
-        (showCompletedTasks ? (
+      {completedTasks.length > 0
+        && (showCompletedTasks ? (
           <>
             <button
+              type="button"
               className="text-gray-500 text-base md:text-sm select-none hover:bg-gray-100 py-1"
               onClick={() => setShowCompletedTasks(false)}
             >
@@ -86,7 +90,7 @@ function TaskLists({ column, completedTasks, tasks, taskCompletedHandler, taskDe
                   fillRule="evenodd"
                   d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
                   clipRule="evenodd"
-                ></path>
+                />
               </svg>
               hide completed tasks
             </button>
@@ -94,6 +98,7 @@ function TaskLists({ column, completedTasks, tasks, taskCompletedHandler, taskDe
           </>
         ) : (
           <button
+            type="button"
             className="text-gray-500 text-base md:text-sm select-none hover:bg-gray-100 py-1"
             onClick={() => setShowCompletedTasks(true)}
           >
@@ -107,7 +112,7 @@ function TaskLists({ column, completedTasks, tasks, taskCompletedHandler, taskDe
                 fillRule="evenodd"
                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                 clipRule="evenodd"
-              ></path>
+              />
             </svg>
             show completed tasks
           </button>

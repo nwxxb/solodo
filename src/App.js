@@ -1,8 +1,13 @@
-import Logo from "./logo-black.svg";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import TodoList from "./TodoList/TodoList";
-import What from "./WhatPage/What";
-import ComponentNotFound from "./404page/ComponentNotFound";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
+import Logo from './logo-black.svg';
+import TodoList from './TodoList/TodoList';
+import What from './WhatPage/What';
+import ComponentNotFound from './404page/ComponentNotFound';
 
 function App() {
   return (
@@ -23,7 +28,7 @@ function App() {
               </span>
             </Link>
           </nav>
-          
+
           <main className="px-4 py-8 flex flex-col flex-1">
             <Switch>
               <Route exact path="/what">
@@ -37,9 +42,10 @@ function App() {
               </Route>
             </Switch>
           </main>
-          
           <footer className="p-4 text-center text-xs opacity-50 select-none">
-            Made with <span className="text-red-500">&#9829;</span> in Kediri
+            Made with
+            <span className="text-red-500">&#9829;</span>
+            in Kediri
           </footer>
         </div>
       </div>

@@ -1,59 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import TaskLists from './TaskLists'
-import { DragDropContext } from 'react-beautiful-dnd'
-import TaskInput from './TaskInput'
-import Skeleton from './Skeleton'
-import CardOnFocus from '../Card/CardOnFocus'
-import DATA from '../data'
+import { useEffect, useState } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
+import TaskLists from './TaskLists';
+import TaskInput from './TaskInput';
+import Skeleton from './Skeleton';
+import CardOnFocus from '../Card/CardOnFocus';
+import DATA from '../data';
 
 function TodoList() {
-  let [data, setData] = useState({})
-  let [isLoaded, setIsLoaded] = useState(false)
-  let [taskOnFocus, setTaskOnFocus] = useState({})
-  let [inFocus, setInFocus] = useState(false)
-  
-  let Title = (
+  const [data, setData] = useState({});
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [taskOnFocus, setTaskOnFocus] = useState({});
+  const [inFocus, setInFocus] = useState(false);
+
+  const Title = (
     <h1 className="text-2xl md:text-4xl text-center font-bold mb-4 select-none">
-      Fokus pada <span className="text-blue-400">Satu</span> pekerjaan.
+      Fokus pada
+      {' '}
+      <span className="text-blue-400">Satu</span>
+      {' '}
+      pekerjaan.
     </h1>
   );
 
   useEffect(() => {
-    setData(JSON.parse(localStorage.getItem("data")) || DATA);
-    setIsLoaded(true)
-  }, [])
+    setData(JSON.parse(localStorage.getItem('data')) || DATA);
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem('data', JSON.stringify(data))
-  }, [data])
+    localStorage.setItem('data', JSON.stringify(data));
+  }, [data]);
 
   useEffect(() => {
     if (inFocus && data.editColumn.taskOrder.length) {
-      const taskOnFocusId = data.editColumn.taskOrder[0]
-      const taskOnFocus = {...data.tasks[taskOnFocusId]}
-      setTaskOnFocus(taskOnFocus) 
+      const taskOnFocusId = data.editColumn.taskOrder[0];
+      const newTaskOnFocus = { ...data.tasks[taskOnFocusId] };
+      setTaskOnFocus(newTaskOnFocus);
     } else {
-      setInFocus(false)
+      setInFocus(false);
     }
-  }, [inFocus, data])
+  }, [inFocus, data]);
 
   function handleCreateTask(content) {
-    const taskId = `task-${Date.now()}`
+    const taskId = `task-${Date.now()}`;
     const newTaskObj = {
-      id: taskId, 
-      content: content,
-      isCompleted: false
-    }
+      id: taskId,
+      content,
+      isCompleted: false,
+    };
 
-    let newData = {...data}
-    newData.tasks[taskId] = newTaskObj
-    newData.editColumn.taskOrder = [...data.editColumn.taskOrder, taskId]
-    setData(newData)
+    const newData = { ...data };
+    newData.tasks[taskId] = newTaskObj;
+    newData.editColumn.taskOrder = [...data.editColumn.taskOrder, taskId];
+    setData(newData);
   }
 
   function handleCompletedTask(id) {
-    let newTasks = {...data.tasks}
-    newTasks[id].isCompleted = !newTasks[id].isCompleted
+    const newTasks = { ...data.tasks };
+    newTasks[id].isCompleted = !newTasks[id].isCompleted;
     let newTaskOrder = [...data.editColumn.taskOrder];
     let newCompletedTasks = [...data.completedTasks];
 
@@ -61,70 +65,68 @@ function TodoList() {
       newTaskOrder = newTaskOrder.filter((taskId) => taskId !== id);
       newCompletedTasks = [id, ...newCompletedTasks];
     } else {
-      newCompletedTasks = newCompletedTasks.filter((taskId) => taskId !== id)
+      newCompletedTasks = newCompletedTasks.filter((taskId) => taskId !== id);
       newTaskOrder = [...newTaskOrder, id];
     }
-    
-    
-    let newData = {
+
+    const newData = {
       tasks: newTasks,
       editColumn: {
         ...data.editColumn,
-        taskOrder: newTaskOrder
+        taskOrder: newTaskOrder,
       },
-      completedTasks: newCompletedTasks
-    }
+      completedTasks: newCompletedTasks,
+    };
 
-    setData(newData)
+    setData(newData);
   }
 
   function handleDeleteTask(id) {
-    let newTasks = {...data.tasks}
-    delete newTasks[id]
-    let newTaskOrder = data.editColumn.taskOrder.filter(taskId => taskId !== id)
-    let newCompletedTasks = data.completedTasks.filter(taskId => taskId !== id)
+    const newTasks = { ...data.tasks };
+    delete newTasks[id];
+    const newTaskOrder = data.editColumn.taskOrder.filter((taskId) => taskId !== id);
+    const newCompletedTasks = data.completedTasks.filter((taskId) => taskId !== id);
     const newData = {
       tasks: newTasks,
       editColumn: {
         ...data.editColumn,
-        taskOrder : newTaskOrder
+        taskOrder: newTaskOrder,
       },
-      completedTasks : newCompletedTasks
-    }
-    
-    
-    setData(newData)
+      completedTasks: newCompletedTasks,
+    };
+
+    setData(newData);
   }
 
   function handleUpdateTask(id, newContent) {
-    let newTasks = {...data.tasks}
-    newTasks[id].content = newContent
+    const newTasks = { ...data.tasks };
+    newTasks[id].content = newContent;
     const newData = {
       ...data,
-      tasks: newTasks
-    }
-    setData(newData)
+      tasks: newTasks,
+    };
+    setData(newData);
   }
 
   function onDragEnd(result) {
-    const { draggableId, source, destination } = result
+    const { draggableId, source, destination } = result;
 
-    if (!destination) return ;
-    if (source.index === destination.index) return ;
+    if (!destination) return;
+    if (source.index === destination.index) return;
 
-    let newTaskOrder = [...data.editColumn.taskOrder]
-    newTaskOrder.splice(source.index, 1)
-    newTaskOrder.splice(destination.index, 0, draggableId)
+    const newTaskOrder = [...data.editColumn.taskOrder];
+    newTaskOrder.splice(source.index, 1);
+    newTaskOrder.splice(destination.index, 0, draggableId);
 
-    let newData = {
+    const newData = {
       ...data,
       editColumn: {
         ...data.editColumn,
-        taskOrder: newTaskOrder
-      }
-    }
+        taskOrder: newTaskOrder,
+      },
+    };
 
-    setData(newData)
+    setData(newData);
   }
 
   return inFocus ? (
@@ -135,6 +137,7 @@ function TodoList() {
         onTaskCompleted={handleCompletedTask}
       />
       <button
+        type="button"
         onClick={() => setInFocus(false)}
         className="p-4 self-center text-center mt-8 text-sm bg-gray-50 border rounded-md text-gray-900 underline select-none"
       >
@@ -162,6 +165,7 @@ function TodoList() {
         </div>
         {isLoaded && data.editColumn.taskOrder.length ? (
           <button
+            type="button"
             onClick={() => setInFocus(true)}
             className="p-4 text-center self-center rounded-md bg-blue-400 hover:bg-blue-500 text-white mt-4 select-none"
           >
@@ -170,7 +174,7 @@ function TodoList() {
         ) : undefined}
       </div>
     </DragDropContext>
-  );   
+  );
 }
 
 export default TodoList;

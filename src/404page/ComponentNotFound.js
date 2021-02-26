@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import image404 from '../image404.svg'
+import { Link } from 'react-router-dom';
+import image404 from '../image404.svg';
 
 function TodoList() {
   return (
