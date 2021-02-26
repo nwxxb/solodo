@@ -1,4 +1,6 @@
 import { useRef } from 'react'
+import createDOMPurify from "dompurify";
+const DOMPurify = createDOMPurify(window);
 
 function TaskInput({ isDisabled, onTaskSubmit }) {
   const inputRef = useRef(null)
@@ -12,6 +14,12 @@ function TaskInput({ isDisabled, onTaskSubmit }) {
     }
   }
 
+  function handlePaste(e) {
+    e.preventDefault();
+    const text = DOMPurify.sanitize(e.clipboardData.getData("text/plain"))
+    document.execCommand("insertHTML", false, text.trim().substr(0, 200));
+  }
+
   function handleClick() {
     if (inputRef.current.value) {
       handleSubmit(inputRef.current.value)
@@ -20,7 +28,7 @@ function TaskInput({ isDisabled, onTaskSubmit }) {
   }
 
   function handleSubmit(value) {
-    const key = value.trim();
+    const key = DOMPurify.sanitize(value.trim());
     if (key) {
       onTaskSubmit(key);
     }
@@ -32,6 +40,7 @@ function TaskInput({ isDisabled, onTaskSubmit }) {
       <input
         ref={inputRef}
         onKeyDown={handleKeyDown}
+        onPaste={handlePaste}
         name="input-task"
         className="p-2 pl-4 text-xl w-full rounded focus:outline-none focus:ring focus:ring-blue-400"
         type="text"

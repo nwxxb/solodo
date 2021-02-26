@@ -2,7 +2,8 @@ import Card from './Card'
 import { Draggable } from 'react-beautiful-dnd'
 import ContentEditable from 'react-contenteditable'
 import { useEffect, useState } from 'react'
-import { trimSpaces } from '../helper'
+import createDOMPurify from "dompurify";
+const DOMPurify = createDOMPurify(window);
 
 function CardOnEdit({ content, id, index, onTaskUpdate, onTaskCompleted, onTaskDelete }) {
   let [text, setText] = useState(content)
@@ -10,13 +11,13 @@ function CardOnEdit({ content, id, index, onTaskUpdate, onTaskCompleted, onTaskD
 
   function handlePaste(e) {
     e.preventDefault()
-    const text = e.clipboardData.getData('text/plain')
+    const text = DOMPurify.sanitize(e.clipboardData.getData('text/plain'))
     document.execCommand('insertHTML', false, text.trim().substr(0, 200))
   }
 
   useEffect(() => {
     if (onEdit && text !== content) {
-      onTaskUpdate(id, text);
+      onTaskUpdate(id, DOMPurify.sanitize(text));
     } else {
       if (!text) {
         cardOnDelete()  
@@ -36,7 +37,7 @@ function CardOnEdit({ content, id, index, onTaskUpdate, onTaskCompleted, onTaskD
   }
 
   function handleChange(e) {
-    setText(trimSpaces(e.target.value).trim())
+    setText(e.target.value.trim())
   }
 
   function handleKeyDown(e) {
