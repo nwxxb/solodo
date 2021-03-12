@@ -1,6 +1,6 @@
 <img alt="Solodo Logo" src="https://github.com/nawwab/solodo/blob/main/src/logo-black.svg?raw=true"/>
 
-Solodo is a todo list app that try to encourage you to focus on each task
+Solodo is a todo list app that try to encourage you to focus on each task, you can try live-demo (here)[s.id/cobaSolodo]
 
 If something doesn’t work or there is a bug, please [file an issue](https://github.com/facebook/create-react-app/issues/new).
 
