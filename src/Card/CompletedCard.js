@@ -1,6 +1,6 @@
 import Card from './Card';
 
-function CardOnComplete({
+function CompletedCard({
   content,
   id,
   onTaskCompleted,
@@ -70,4 +70,4 @@ function CardOnComplete({
   );
 }
 
-export default CardOnComplete;
+export default CompletedCard;

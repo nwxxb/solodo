@@ -1,6 +1,6 @@
 import Card from './Card';
 
-function CardOnFocus({ content, id, onTaskCompleted }) {
+function FocusCard({ content, id, onTaskCompleted }) {
   function cardOnCompleted() {
     onTaskCompleted(id);
   }
@@ -51,4 +51,4 @@ function CardOnFocus({ content, id, onTaskCompleted }) {
   );
 }
 
-export default CardOnFocus;
+export default FocusCard;

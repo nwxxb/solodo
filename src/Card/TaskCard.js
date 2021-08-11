@@ -6,7 +6,7 @@ import Card from './Card';
 
 const DOMPurify = createDOMPurify(window);
 
-function CardOnEdit({
+function TaskCard({
   content, id, index, onTaskUpdate, onTaskCompleted, onTaskDelete,
 }) {
   const [text, setText] = useState(content);
@@ -157,4 +157,4 @@ function CardOnEdit({
   );
 }
 
-export default CardOnEdit;
+export default TaskCard;

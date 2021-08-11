@@ -3,7 +3,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import TaskLists from './TaskLists';
 import TaskInput from './TaskInput';
 import Skeleton from './Skeleton';
-import CardOnFocus from '../Card/CardOnFocus';
+import FocusCard from '../Card/FocusCard';
 import DATA from '../data';
 
 function TodoList() {
@@ -131,7 +131,7 @@ function TodoList() {
 
   return inFocus ? (
     <div className="flex flex-1 flex-col justify-center">
-      <CardOnFocus
+      <FocusCard
         content={taskOnFocus.content}
         id={taskOnFocus.id}
         onTaskCompleted={handleCompletedTask}

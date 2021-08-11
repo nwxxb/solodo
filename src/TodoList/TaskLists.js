@@ -1,7 +1,7 @@
 import { Droppable } from 'react-beautiful-dnd';
 import { useState } from 'react';
-import CardOnEdit from '../Card/CardOnEdit';
-import CardOnComplete from '../Card/CardOnComplete';
+import TaskCard from '../Card/TaskCard';
+import CompletedCard from '../Card/CompletedCard';
 import ImageOnEmpty from '../imageOnEmpty.svg';
 import ImageOnAllDone from '../imageOnAllDone.svg';
 
@@ -17,7 +17,7 @@ function TaskLists({
           {column.taskOrder.map((taskId, index) => {
             const taskOnRender = tasks[taskId];
             return (
-              <CardOnEdit
+              <TaskCard
                 content={taskOnRender.content}
                 id={taskOnRender.id}
                 index={index}
@@ -57,7 +57,7 @@ function TaskLists({
       {completedTasks.map((taskId) => {
         const taskOnRender = tasks[taskId];
         return (
-          <CardOnComplete
+          <CompletedCard
             content={taskOnRender.content}
             id={taskOnRender.id}
             key={taskOnRender.id}
